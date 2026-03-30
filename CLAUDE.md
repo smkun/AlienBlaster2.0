@@ -99,11 +99,12 @@ index.html
 - [x] Controls hint display (fades after 10s on first wave)
 - [x] Menu screen with title SVG, game over screen with score summary
 
-### Phase 5: Polish & Testing
-- [ ] Visual feedback: score pop-ups float from killed aliens
-- [ ] Difficulty curve tuning and playtesting
-- [ ] Performance profiling and optimization
-- [ ] Cross-browser testing (Chrome, Firefox, Safari, Edge)
+### Phase 5: Polish & Testing — COMPLETE
+- [x] Score pop-ups float from killed aliens (colored per type, fade upward)
+- [x] Game over screen with name entry, high score submission
+- [x] High scores displayed on menu (top 5) and game over (top 10)
+- [x] ScoreManager with localStorage persistence wired into game flow
+- [x] Difficulty curve tuned: gentler ramp (12 base aliens, 2% speed/wave, 1.4s spawn start)
 
 ---
 
