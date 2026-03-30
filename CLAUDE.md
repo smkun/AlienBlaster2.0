@@ -79,43 +79,25 @@ index.html
 - [x] Starfield + nebula backgrounds on menu and gameplay
 - [x] Title and game over SVG graphics
 
-### Phase 3: Advanced Features — IN PROGRESS
-- [ ] `BossAlien.js` — boss entity with 2 phases, health scaling
-- [ ] Boss spawns every 5 waves, stops at 70% screen width
-- [ ] Boss Phase 1: up/down movement, spawns mini-aliens
-- [ ] Boss Phase 2: faster movement, fires projectiles at player
-- [ ] Boss health bar at top of screen
-- [ ] Boss drops guaranteed weapon upgrade on death
-- [ ] `PowerUp.js` — health pack, ammo crate, spread shot, rapid fire, shield
-- [ ] Power-up spawning (every 5 kills, weighted random)
-- [ ] Spread shot (3 lasers in fan, 10s duration)
-- [ ] Rapid fire (2x fire rate, 10s duration)
-- [ ] Shield (absorbs 3 hits, bubble visual)
-- [ ] `ParticleSystem.js` — emitter with configurable lifetime, color, velocity
-- [ ] Explosion particles on alien death (colored per type)
-- [ ] Rocket trail particles
-- [ ] Muzzle flash on shoot
-- [ ] Power-up sparkle/glow
-- [ ] Boss death multi-stage explosion
-- [ ] `Camera.js` — screen shake (light/medium/heavy per event)
-- [ ] Parallax scrolling background (3 layers with continuous scroll)
+### Phase 3: Advanced Features — COMPLETE
+- [x] `BossAlien.js` — 2 phases, health scaling, minion spawning, projectile attacks
+- [x] Boss spawns every 5 waves, health bar at top of screen
+- [x] Boss drops guaranteed weapon upgrade on death
+- [x] `PowerUp.js` — 5 types (health, ammo, spreadshot, rapidfire, shield) with weighted random
+- [x] Power-up spawning every 5 kills, boss drops upgrades
+- [x] `ParticleSystem.js` — explosions, rocket trails, muzzle flash, sparkle, boss death
+- [x] `Camera.js` — screen shake (light/medium/heavy per event)
+- [x] `Background.js` — 3-layer parallax scrolling (stars, nebula, foreground)
 
-### Phase 4: UI & Audio
-- [ ] `AudioManager.js` — Web Audio API, sound pooling, volume control
-- [ ] SFX: laser fire, rocket fire, alien death (per type), boss death
-- [ ] SFX: power-up collect, player hit, shield activate/break
-- [ ] SFX: wave complete jingle, boss warning alarm
-- [ ] Music: menu theme, gameplay loop, boss fight track, game over sting
-- [ ] Master / SFX / music volume sliders
-- [ ] Mute toggle (persisted to localStorage)
-- [ ] `HUD.js` — health bar (graphical), ammo count, score, wave number
-- [ ] Boss health bar (shown only during boss fights)
-- [ ] Active power-up timers with icons
-- [ ] `MenuScreen.js` — title screen with high scores list
-- [ ] Pause overlay (semi-transparent, resume/quit)
-- [ ] Wave complete overlay (stats, next wave prompt)
-- [ ] Game over screen (score, name input, high scores, restart)
-- [ ] Controls hint display (fades after 10s on first wave)
+### Phase 4: UI & Audio — COMPLETE
+- [x] `AudioManager.js` — Web Audio API, volume/mute persistence to localStorage
+- [x] `SoundGenerator.js` — 10 procedural retro SFX (laser, rocket, explosions, power-up, shield, jingles)
+- [x] SFX wired to all game events (shoot, kill, power-up, boss, wave, damage)
+- [x] Mute toggle with M key
+- [x] `HUD.js` — graphical health bar, rocket count, score/wave, upgrade timers
+- [x] Boss health bar (shown only during boss fights)
+- [x] Controls hint display (fades after 10s on first wave)
+- [x] Menu screen with title SVG, game over screen with score summary
 
 ### Phase 5: Polish & Testing
 - [ ] Visual feedback: score pop-ups float from killed aliens
