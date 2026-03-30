@@ -3,25 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alien Blaster</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-        canvas {
-            border: 2px solid #333;
-            background: #111;
-        }
-    </style>
+    <title>Alien Blaster 2.0</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
+    <div id="page-wrapper">
+        <header id="title-bar">
+            <img src="assets/images/title.svg" alt="Alien Blaster" id="title-img">
+        </header>
+
+        <div id="stats-bar">
+            <div class="stat-group left">
+                <span class="stat-label">HP</span>
+                <div class="stat-bar-bg"><div id="hp-bar" class="stat-bar-fill hp"></div></div>
+                <span id="hp-text" class="stat-value">50</span>
+            </div>
+            <div class="stat-group center">
+                <span class="stat-label">ROCKETS</span>
+                <span id="ammo-text" class="stat-value cyan">20</span>
+            </div>
+            <div class="stat-group center">
+                <span class="stat-label">SCORE</span>
+                <span id="score-text" class="stat-value gold">0</span>
+            </div>
+            <div class="stat-group right">
+                <span class="stat-label">WAVE</span>
+                <span id="wave-text" class="stat-value">1</span>
+                <button id="mute-btn" title="Toggle Mute (M)">MUTE</button>
+            </div>
+        </div>
+
+        <div id="game-layout">
+            <aside id="panel-left" class="side-panel">
+                <h2>High Scores</h2>
+                <ol id="high-scores-list">
+                    <li class="empty">No scores yet</li>
+                </ol>
+            </aside>
+
+            <main id="game-container">
+                <canvas id="gameCanvas"></canvas>
+            </main>
+
+            <aside id="panel-right" class="side-panel">
+                <h2>How to Play</h2>
+                <div class="controls-list">
+                    <div class="control-row">
+                        <kbd>&#x2191; &#x2193;</kbd>
+                        <span>Move soldier</span>
+                    </div>
+                    <div class="control-row">
+                        <kbd>SPACE</kbd>
+                        <span>Fire laser (1 dmg)</span>
+                    </div>
+                    <div class="control-row">
+                        <kbd>R</kbd>
+                        <span>Fire rocket (5 dmg)</span>
+                    </div>
+                    <div class="control-row">
+                        <kbd>ESC / P</kbd>
+                        <span>Pause</span>
+                    </div>
+                    <div class="control-row">
+                        <kbd>M</kbd>
+                        <span>Mute / Unmute</span>
+                    </div>
+                </div>
+
+                <h2>Aliens</h2>
+                <div class="alien-legend">
+                    <div class="legend-row">
+                        <img src="assets/images/alien-green.svg" alt="Green" class="legend-icon">
+                        <span>1 HP, fast = 1 pt</span>
+                    </div>
+                    <div class="legend-row">
+                        <img src="assets/images/alien-red.svg" alt="Red" class="legend-icon">
+                        <span>2 HP, medium = 2 pts</span>
+                    </div>
+                    <div class="legend-row">
+                        <img src="assets/images/alien-yellow.svg" alt="Yellow" class="legend-icon">
+                        <span>8 HP, slow = 4 pts</span>
+                    </div>
+                    <div class="legend-row">
+                        <img src="assets/images/alien-purple.svg" alt="Purple" class="legend-icon">
+                        <span>3 HP, zigzag = 3 pts</span>
+                    </div>
+                </div>
+
+                <h2>Power-Ups</h2>
+                <div class="powerup-legend">
+                    <div class="legend-row">
+                        <img src="assets/images/powerup-health.svg" alt="Health" class="legend-icon sm">
+                        <span>+3 Health</span>
+                    </div>
+                    <div class="legend-row">
+                        <img src="assets/images/powerup-ammo.svg" alt="Ammo" class="legend-icon sm">
+                        <span>+5 Rockets</span>
+                    </div>
+                    <div class="legend-row">
+                        <img src="assets/images/powerup-shield.svg" alt="Shield" class="legend-icon sm">
+                        <span>Shield (3 hits)</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <footer id="footer-bar">
+            <span>Alien Blaster 2.0</span>
+            <span class="sep">|</span>
+            <span>Boss every 5 waves</span>
+            <span class="sep">|</span>
+            <span>Collect power-ups to survive</span>
+        </footer>
+    </div>
     <script type="module" src="src/main.js"></script>
 </body>
 </html>

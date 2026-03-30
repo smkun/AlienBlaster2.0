@@ -37,7 +37,61 @@ export class Game {
 
     start() {
         this.lastTime = performance.now();
+        this.initHTMLBindings();
+        this.syncHighScoresHTML();
         requestAnimationFrame((time) => this.loop(time));
+    }
+
+    initHTMLBindings() {
+        this.htmlHP = document.getElementById('hp-bar');
+        this.htmlHPText = document.getElementById('hp-text');
+        this.htmlAmmo = document.getElementById('ammo-text');
+        this.htmlScore = document.getElementById('score-text');
+        this.htmlWave = document.getElementById('wave-text');
+        this.htmlMuteBtn = document.getElementById('mute-btn');
+        this.htmlHighScores = document.getElementById('high-scores-list');
+
+        if (this.htmlMuteBtn) {
+            this.htmlMuteBtn.addEventListener('click', () => {
+                this.audio.init();
+                const muted = this.audio.toggleMute();
+                this.htmlMuteBtn.textContent = muted ? 'UNMUTE' : 'MUTE';
+            });
+        }
+    }
+
+    syncHTMLStats() {
+        if (!this.soldier) return;
+        const pct = Math.max(0, this.soldier.health / this.soldier.maxHealth);
+        if (this.htmlHP) {
+            this.htmlHP.style.width = `${pct * 100}%`;
+            if (pct > 0.5) {
+                this.htmlHP.style.background = 'linear-gradient(90deg, #4f4, #2d2)';
+                this.htmlHP.style.boxShadow = '0 0 6px rgba(50,255,50,0.4)';
+            } else if (pct > 0.25) {
+                this.htmlHP.style.background = 'linear-gradient(90deg, #ff4, #cc2)';
+                this.htmlHP.style.boxShadow = '0 0 6px rgba(255,255,50,0.4)';
+            } else {
+                this.htmlHP.style.background = 'linear-gradient(90deg, #f44, #c22)';
+                this.htmlHP.style.boxShadow = '0 0 6px rgba(255,50,50,0.4)';
+            }
+        }
+        if (this.htmlHPText) this.htmlHPText.textContent = this.soldier.health;
+        if (this.htmlAmmo) this.htmlAmmo.textContent = this.soldier.ammo;
+        if (this.htmlScore) this.htmlScore.textContent = this.score;
+        if (this.htmlWave) this.htmlWave.textContent = this.wave;
+    }
+
+    syncHighScoresHTML() {
+        if (!this.htmlHighScores) return;
+        const scores = this.scoreManager.getScores();
+        if (scores.length === 0) {
+            this.htmlHighScores.innerHTML = '<li class="empty">No scores yet</li>';
+            return;
+        }
+        this.htmlHighScores.innerHTML = scores.slice(0, 10).map((s, i) =>
+            `<li><span class="rank">${i + 1}.</span><span class="name">${s.name}</span><span class="score">${s.score}</span></li>`
+        ).join('');
     }
 
     setState(newState) {
@@ -89,8 +143,8 @@ export class Game {
                 this.particleSystem.update(dt);
                 this.gameOverScreen.update(dt);
                 if (this.gameOverScreen.handleInput(this.input)) {
-                    // Returned true = done viewing scores, go to menu
                     this.removeKeyListener();
+                    this.syncHighScoresHTML();
                     this.setState(CONFIG.STATES.MENU);
                 }
                 break;
@@ -379,6 +433,7 @@ export class Game {
 
     render() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.syncHTMLStats();
 
         switch (this.state) {
             case CONFIG.STATES.LOADING:
