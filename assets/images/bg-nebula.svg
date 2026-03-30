@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <!-- Soft blur for nebula clouds -->
+    <filter id="nebula-blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="40" />
+    </filter>
+    <filter id="nebula-blur-lg" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="60" />
+    </filter>
+    <filter id="nebula-blur-sm" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="25" />
+    </filter>
+
+    <!-- Radial gradients for nebula patches -->
+    <radialGradient id="nebula1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6633aa" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#442288" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#221155" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nebula2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3344aa" stop-opacity="0.15"/>
+      <stop offset="55%" stop-color="#223388" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#112266" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nebula3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7744bb" stop-opacity="0.12"/>
+      <stop offset="50%" stop-color="#553399" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#331177" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nebula4" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2255cc" stop-opacity="0.14"/>
+      <stop offset="60%" stop-color="#1144aa" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#0a2266" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nebula5" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8855cc" stop-opacity="0.1"/>
+      <stop offset="50%" stop-color="#6644aa" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#442288" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Large purple nebula cloud - upper left -->
+  <ellipse cx="250" cy="200" rx="320" ry="180" fill="url(#nebula1)" filter="url(#nebula-blur-lg)"/>
+
+  <!-- Blue nebula cloud - center right -->
+  <ellipse cx="850" cy="350" rx="280" ry="200" fill="url(#nebula2)" filter="url(#nebula-blur-lg)"/>
+
+  <!-- Smaller purple patch - lower center -->
+  <ellipse cx="500" cy="580" rx="250" ry="150" fill="url(#nebula3)" filter="url(#nebula-blur)"/>
+
+  <!-- Deep blue wisp - upper right -->
+  <ellipse cx="1000" cy="150" rx="200" ry="120" fill="url(#nebula4)" filter="url(#nebula-blur)"/>
+
+  <!-- Faint purple haze - lower left -->
+  <ellipse cx="150" cy="600" rx="220" ry="160" fill="url(#nebula5)" filter="url(#nebula-blur-lg)"/>
+
+  <!-- Layered overlapping wisps for depth -->
+  <ellipse cx="400" cy="300" rx="180" ry="100" fill="url(#nebula2)" filter="url(#nebula-blur)" opacity="0.6"/>
+  <ellipse cx="700" cy="500" rx="200" ry="130" fill="url(#nebula1)" filter="url(#nebula-blur)" opacity="0.5"/>
+  <ellipse cx="300" cy="450" rx="160" ry="90" fill="url(#nebula4)" filter="url(#nebula-blur-sm)" opacity="0.4"/>
+
+  <!-- Subtle bright cores -->
+  <ellipse cx="250" cy="200" rx="80" ry="50" fill="#7744bb" filter="url(#nebula-blur)" opacity="0.06"/>
+  <ellipse cx="850" cy="350" rx="70" ry="55" fill="#3355bb" filter="url(#nebula-blur)" opacity="0.05"/>
+  <ellipse cx="500" cy="580" rx="60" ry="40" fill="#8855cc" filter="url(#nebula-blur-sm)" opacity="0.04"/>
+
+  <!-- Very faint wide atmospheric wash -->
+  <ellipse cx="600" cy="400" rx="500" ry="300" fill="#332266" filter="url(#nebula-blur-lg)" opacity="0.04"/>
+</svg>

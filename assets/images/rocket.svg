@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 10" width="24" height="10">
+  <defs>
+    <linearGradient id="rocketBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#33ffff"/>
+      <stop offset="50%" stop-color="#00e5ff"/>
+      <stop offset="100%" stop-color="#0099cc"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6600"/>
+      <stop offset="40%" stop-color="#ffcc00"/>
+      <stop offset="100%" stop-color="#ff3300" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="flameInner" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#ffff66"/>
+      <stop offset="100%" stop-color="#ffaa00" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Flame trail outer -->
+  <polygon points="6,3.5 6,6.5 0,5.8 -1,5 0,4.2" fill="url(#flame)" opacity="0.8"/>
+  <!-- Flame trail inner -->
+  <polygon points="6,4 6,6 2,5.5 1,5 2,4.5" fill="url(#flameInner)" opacity="0.9"/>
+
+  <!-- Rocket body -->
+  <path d="M6,2.5 L19,2.5 Q22,5 19,7.5 L6,7.5 Q5,5 6,2.5 Z" fill="url(#rocketBody)" stroke="#222" stroke-width="1.2"/>
+
+  <!-- Nose cone -->
+  <path d="M19,2.5 Q24,5 19,7.5" fill="#00ccdd" stroke="#222" stroke-width="1.2"/>
+
+  <!-- Nose tip highlight -->
+  <path d="M20,3.5 Q23,5 20,6.5" fill="#99ffff" opacity="0.5"/>
+
+  <!-- Top fin -->
+  <polygon points="8,2.5 11,2.5 10,0.5 7,0.5" fill="#0099cc" stroke="#222" stroke-width="1"/>
+  <!-- Bottom fin -->
+  <polygon points="8,7.5 11,7.5 10,9.5 7,9.5" fill="#0099cc" stroke="#222" stroke-width="1"/>
+
+  <!-- Body stripe -->
+  <rect x="10" y="3" width="2" height="4" rx="0.5" fill="#99ffff" opacity="0.4"/>
+  <rect x="14" y="3" width="1" height="4" rx="0.5" fill="#99ffff" opacity="0.3"/>
+
+  <!-- Exhaust nozzle -->
+  <rect x="5" y="3.5" width="2" height="3" rx="0.5" fill="#557788" stroke="#222" stroke-width="0.8"/>
+</svg>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" width="120" height="100">
+  <defs>
+    <radialGradient id="bossBody" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#cc4444"/>
+      <stop offset="100%" stop-color="#881111"/>
+    </radialGradient>
+    <radialGradient id="bossEye" cx="40%" cy="35%" r="50%">
+      <stop offset="0%" stop-color="#ffffaa"/>
+      <stop offset="100%" stop-color="#ffff44"/>
+    </radialGradient>
+    <radialGradient id="bossGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff6666"/>
+      <stop offset="100%" stop-color="#881111"/>
+    </radialGradient>
+    <linearGradient id="tentGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#aa2222"/>
+      <stop offset="100%" stop-color="#661111"/>
+    </linearGradient>
+  </defs>
+  <!-- Tentacles (behind body) -->
+  <path d="M30 70 Q15 80 10 95 Q8 98 12 96 Q18 88 25 78" fill="url(#tentGrad)" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+  <path d="M40 75 Q30 88 22 98 Q20 100 25 98 Q34 90 38 80" fill="url(#tentGrad)" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+  <path d="M60 78 Q60 90 55 100 Q54 102 58 100 Q63 92 62 82" fill="url(#tentGrad)" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+  <path d="M80 75 Q90 88 98 98 Q100 100 95 98 Q86 90 82 80" fill="url(#tentGrad)" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+  <path d="M90 70 Q105 80 110 95 Q112 98 108 96 Q102 88 95 78" fill="url(#tentGrad)" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+  <!-- Extra side tentacles -->
+  <path d="M15 50 Q4 45 2 55 Q1 60 6 56 Q10 50 18 52" fill="url(#tentGrad)" stroke="#222" stroke-width="2"/>
+  <path d="M105 50 Q116 45 118 55 Q119 60 114 56 Q110 50 102 52" fill="url(#tentGrad)" stroke="#222" stroke-width="2"/>
+  <!-- Main body (large, bulbous) -->
+  <ellipse cx="60" cy="48" rx="40" ry="30" fill="url(#bossBody)" stroke="#222" stroke-width="2.5"/>
+  <!-- Head dome -->
+  <ellipse cx="60" cy="28" rx="32" ry="22" fill="url(#bossBody)" stroke="#222" stroke-width="2.5"/>
+  <!-- Forehead ridges -->
+  <path d="M32 18 Q46 10 60 14 Q74 10 88 18" fill="none" stroke="#661111" stroke-width="2" opacity="0.6"/>
+  <path d="M36 22 Q48 15 60 18 Q72 15 84 22" fill="none" stroke="#661111" stroke-width="2" opacity="0.5"/>
+  <!-- Horns -->
+  <path d="M32 18 L20 4 L28 16" fill="#aa2222" stroke="#222" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M88 18 L100 4 L92 16" fill="#aa2222" stroke="#222" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Central main eye (large) -->
+  <ellipse cx="60" cy="28" rx="10" ry="9" fill="url(#bossEye)" stroke="#222" stroke-width="2"/>
+  <ellipse cx="60" cy="29" rx="4.5" ry="6" fill="#440000"/>
+  <circle cx="58" cy="26" r="2" fill="#fff"/>
+  <!-- Left eye -->
+  <ellipse cx="40" cy="26" rx="7" ry="6" fill="url(#bossEye)" stroke="#222" stroke-width="2"/>
+  <ellipse cx="40" cy="27" rx="3" ry="4.5" fill="#440000"/>
+  <circle cx="39" cy="25" r="1.2" fill="#fff"/>
+  <!-- Right eye -->
+  <ellipse cx="80" cy="26" rx="7" ry="6" fill="url(#bossEye)" stroke="#222" stroke-width="2"/>
+  <ellipse cx="80" cy="27" rx="3" ry="4.5" fill="#440000"/>
+  <circle cx="79" cy="25" r="1.2" fill="#fff"/>
+  <!-- Small extra eyes -->
+  <ellipse cx="32" cy="34" rx="4" ry="3.5" fill="url(#bossEye)" stroke="#222" stroke-width="1.5"/>
+  <circle cx="32" cy="34.5" r="2" fill="#440000"/>
+  <circle cx="31.5" cy="33.5" r="0.7" fill="#fff"/>
+  <ellipse cx="88" cy="34" rx="4" ry="3.5" fill="url(#bossEye)" stroke="#222" stroke-width="1.5"/>
+  <circle cx="88" cy="34.5" r="2" fill="#440000"/>
+  <circle cx="87.5" cy="33.5" r="0.7" fill="#fff"/>
+  <!-- Heavy angry brow over all eyes -->
+  <path d="M28 20 L42 22" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+  <path d="M92 20 L78 22" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+  <path d="M50 20 L56 22" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M70 20 L64 22" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Massive jaw -->
+  <path d="M35 42 Q60 52 85 42" fill="#661111" stroke="#222" stroke-width="2"/>
+  <!-- Rows of teeth -->
+  <polygon points="40,42 42,48 44,42" fill="#fff" stroke="#222" stroke-width="1"/>
+  <polygon points="48,43 50,50 52,43" fill="#fff" stroke="#222" stroke-width="1"/>
+  <polygon points="56,44 58,51 60,44" fill="#fff" stroke="#222" stroke-width="1"/>
+  <polygon points="64,44 66,51 68,44" fill="#fff" stroke="#222" stroke-width="1"/>
+  <polygon points="72,43 74,50 76,43" fill="#fff" stroke="#222" stroke-width="1"/>
+  <polygon points="80,42 82,48 84,42" fill="#fff" stroke="#222" stroke-width="1"/>
+  <!-- Lower fangs -->
+  <polygon points="44,46 46,40 48,46" fill="#fff" stroke="#222" stroke-width="1"/>
+  <polygon points="72,46 74,40 76,46" fill="#fff" stroke="#222" stroke-width="1"/>
+  <!-- Body texture / armor segments -->
+  <path d="M28 55 Q60 50 92 55" fill="none" stroke="#661111" stroke-width="1.5" opacity="0.5"/>
+  <path d="M25 62 Q60 58 95 62" fill="none" stroke="#661111" stroke-width="1.5" opacity="0.5"/>
+  <path d="M30 69 Q60 65 90 69" fill="none" stroke="#661111" stroke-width="1.5" opacity="0.4"/>
+  <!-- Spikes along shoulders -->
+  <polygon points="24,40 16,32 22,42" fill="#aa2222" stroke="#222" stroke-width="1.5"/>
+  <polygon points="20,48 10,42 18,50" fill="#aa2222" stroke="#222" stroke-width="1.5"/>
+  <polygon points="96,40 104,32 98,42" fill="#aa2222" stroke="#222" stroke-width="1.5"/>
+  <polygon points="100,48 110,42 102,50" fill="#aa2222" stroke="#222" stroke-width="1.5"/>
+  <!-- Belly glow / energy core -->
+  <ellipse cx="60" cy="60" rx="10" ry="7" fill="url(#bossGlow)" stroke="#440000" stroke-width="1.5" opacity="0.7"/>
+  <ellipse cx="60" cy="60" rx="5" ry="3.5" fill="#ff8888" opacity="0.5"/>
+</svg>

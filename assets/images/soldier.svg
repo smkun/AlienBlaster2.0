@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+  <defs>
+    <linearGradient id="visor" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#66ddff"/>
+      <stop offset="100%" stop-color="#2299cc"/>
+    </linearGradient>
+    <linearGradient id="armor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#66aaff"/>
+      <stop offset="100%" stop-color="#3366dd"/>
+    </linearGradient>
+    <linearGradient id="gunMetal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#888"/>
+      <stop offset="100%" stop-color="#555"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Legs -->
+  <rect x="18" y="42" width="7" height="12" rx="2" fill="#3366dd" stroke="#222" stroke-width="2"/>
+  <rect x="29" y="42" width="7" height="12" rx="2" fill="#3366dd" stroke="#222" stroke-width="2"/>
+  <!-- Boots -->
+  <rect x="16" y="50" width="10" height="5" rx="2" fill="#333" stroke="#222" stroke-width="1.5"/>
+  <rect x="28" y="50" width="10" height="5" rx="2" fill="#333" stroke="#222" stroke-width="1.5"/>
+
+  <!-- Body / torso -->
+  <rect x="15" y="24" width="22" height="20" rx="4" fill="url(#armor)" stroke="#222" stroke-width="2"/>
+  <!-- Chest plate detail -->
+  <rect x="20" y="28" width="12" height="6" rx="2" fill="#5599ff" stroke="#222" stroke-width="1"/>
+
+  <!-- Back arm (behind body) -->
+  <rect x="12" y="28" width="6" height="14" rx="3" fill="#4488ff" stroke="#222" stroke-width="2"/>
+
+  <!-- Helmet -->
+  <ellipse cx="26" cy="16" rx="12" ry="11" fill="#4488ff" stroke="#222" stroke-width="2"/>
+  <!-- Visor -->
+  <path d="M30 10 Q38 14 36 22 Q32 24 26 22 Q24 18 28 12 Z" fill="url(#visor)" stroke="#222" stroke-width="1.5" opacity="0.9"/>
+  <!-- Helmet ridge -->
+  <path d="M16 12 Q26 4 36 12" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+  <!-- Antenna -->
+  <line x1="20" y1="6" x2="18" y2="2" stroke="#222" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="18" cy="2" r="1.5" fill="#ff4444"/>
+
+  <!-- Front arm holding gun -->
+  <rect x="34" y="28" width="6" height="12" rx="3" fill="#4488ff" stroke="#222" stroke-width="2"/>
+
+  <!-- Gun -->
+  <rect x="38" y="30" width="16" height="5" rx="1.5" fill="url(#gunMetal)" stroke="#222" stroke-width="1.5"/>
+  <!-- Gun barrel -->
+  <rect x="52" y="31" width="6" height="3" rx="1" fill="#666" stroke="#222" stroke-width="1"/>
+  <!-- Gun muzzle flash hint -->
+  <rect x="57" y="31.5" width="2" height="2" rx="1" fill="#ffaa00" opacity="0.7"/>
+  <!-- Gun grip -->
+  <rect x="40" y="35" width="4" height="5" rx="1" fill="#444" stroke="#222" stroke-width="1"/>
+  <!-- Gun detail -->
+  <rect x="42" y="30.5" width="3" height="1.5" rx="0.5" fill="#aaa"/>
+
+  <!-- Shoulder pads -->
+  <ellipse cx="16" cy="26" rx="5" ry="3" fill="#5599ff" stroke="#222" stroke-width="1.5"/>
+  <ellipse cx="36" cy="26" rx="5" ry="3" fill="#5599ff" stroke="#222" stroke-width="1.5"/>
+
+  <!-- Belt -->
+  <rect x="15" y="40" width="22" height="3" rx="1" fill="#444" stroke="#222" stroke-width="1"/>
+  <rect x="24" y="39.5" width="4" height="4" rx="1" fill="#ffcc00" stroke="#222" stroke-width="1"/>
+</svg>

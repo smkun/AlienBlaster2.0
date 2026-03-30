@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <defs>
+    <linearGradient id="spreadBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff3e0"/>
+      <stop offset="100%" stop-color="#ff9800"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffeb3b"/>
+      <stop offset="100%" stop-color="#ff6f00"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="20" cy="20" r="18" fill="url(#spreadBg)" stroke="#e65100" stroke-width="2.5"/>
+  <!-- Center arrow (straight up) -->
+  <line x1="20" y1="30" x2="20" y2="10" stroke="url(#arrowGrad)" stroke-width="3" stroke-linecap="round"/>
+  <polygon points="20,6 15,14 25,14" fill="#ffeb3b" stroke="#e65100" stroke-width="1"/>
+  <!-- Left arrow (diverging left) -->
+  <line x1="18" y1="30" x2="9" y2="13" stroke="url(#arrowGrad)" stroke-width="3" stroke-linecap="round"/>
+  <polygon points="7,9 6,17 14,14" fill="#ffeb3b" stroke="#e65100" stroke-width="1"/>
+  <!-- Right arrow (diverging right) -->
+  <line x1="22" y1="30" x2="31" y2="13" stroke="url(#arrowGrad)" stroke-width="3" stroke-linecap="round"/>
+  <polygon points="33,9 34,17 26,14" fill="#ffeb3b" stroke="#e65100" stroke-width="1"/>
+  <!-- Highlight -->
+  <ellipse cx="15" cy="12" rx="6" ry="3" fill="#ffffff" opacity="0.3"/>
+</svg>

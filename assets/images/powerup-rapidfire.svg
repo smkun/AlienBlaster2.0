@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <defs>
+    <linearGradient id="rfBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fffde7"/>
+      <stop offset="100%" stop-color="#fbc02d"/>
+    </linearGradient>
+    <linearGradient id="boltGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#ffeb3b"/>
+      <stop offset="100%" stop-color="#ff8f00"/>
+    </linearGradient>
+    <filter id="boltGlow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="20" cy="20" r="18" fill="url(#rfBg)" stroke="#f57f17" stroke-width="2.5"/>
+  <!-- Electric glow -->
+  <circle cx="20" cy="20" r="12" fill="#ffeb3b" opacity="0.3"/>
+  <!-- Lightning bolt -->
+  <polygon points="22,3 12,21 19,21 16,37 28,17 21,17" fill="url(#boltGrad)" stroke="#e65100" stroke-width="1.5" stroke-linejoin="round" filter="url(#boltGlow)"/>
+  <!-- Speed lines -->
+  <line x1="5" y1="12" x2="10" y2="12" stroke="#ff8f00" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="4" y1="20" x2="8" y2="20" stroke="#ff8f00" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="5" y1="28" x2="10" y2="28" stroke="#ff8f00" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="30" y1="12" x2="35" y2="12" stroke="#ff8f00" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="32" y1="20" x2="36" y2="20" stroke="#ff8f00" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="30" y1="28" x2="35" y2="28" stroke="#ff8f00" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+</svg>

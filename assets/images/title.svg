@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 120">
+  <defs>
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e0f7fa"/>
+      <stop offset="30%" stop-color="#4dd0e1"/>
+      <stop offset="60%" stop-color="#0097a7"/>
+      <stop offset="100%" stop-color="#004d40"/>
+    </linearGradient>
+    <linearGradient id="titleGrad2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#80deea"/>
+      <stop offset="100%" stop-color="#00838f"/>
+    </linearGradient>
+    <filter id="titleGlow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="outerGlow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+      <feFlood flood-color="#00e5ff" flood-opacity="0.6" result="color"/>
+      <feComposite in="color" in2="blur" operator="in" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Background subtle stars -->
+  <circle cx="50" cy="20" r="1.5" fill="#ffffff" opacity="0.6"/>
+  <circle cx="150" cy="105" r="1" fill="#ffffff" opacity="0.5"/>
+  <circle cx="300" cy="10" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="450" cy="100" r="1" fill="#ffffff" opacity="0.4"/>
+  <circle cx="550" cy="15" r="1.5" fill="#ffffff" opacity="0.6"/>
+  <circle cx="520" cy="95" r="1" fill="#ffffff" opacity="0.5"/>
+  <circle cx="80" cy="90" r="1" fill="#ffffff" opacity="0.4"/>
+  <!-- ALIEN text -->
+  <text x="300" y="52" text-anchor="middle"
+        font-family="'Arial Black', 'Impact', sans-serif" font-size="52" font-weight="900"
+        letter-spacing="8" filter="url(#outerGlow)">
+    <tspan fill="url(#titleGrad)" stroke="#004d40" stroke-width="2">ALIEN</tspan>
+  </text>
+  <!-- BLASTER text -->
+  <text x="300" y="102" text-anchor="middle"
+        font-family="'Arial Black', 'Impact', sans-serif" font-size="52" font-weight="900"
+        letter-spacing="10" filter="url(#outerGlow)">
+    <tspan fill="url(#titleGrad2)" stroke="#004d40" stroke-width="2">BLASTER</tspan>
+  </text>
+  <!-- Decorative lines -->
+  <line x1="80" y1="60" x2="200" y2="60" stroke="#00e5ff" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+  <line x1="400" y1="60" x2="520" y2="60" stroke="#00e5ff" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+  <!-- Small diamond accents -->
+  <polygon points="75,60 80,55 85,60 80,65" fill="#00e5ff" opacity="0.7"/>
+  <polygon points="515,60 520,55 525,60 520,65" fill="#00e5ff" opacity="0.7"/>
+</svg>
