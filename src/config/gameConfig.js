@@ -32,12 +32,12 @@ export const CONFIG = {
         purple: { health: 3, speed: 130, points: 3, width: 60, height: 60, color: '#aa44ff' },
     },
 
-    // Difficulty scaling
-    WAVE_BASE_ALIENS: 15,
+    // Difficulty scaling (designed for slow, fair ramp)
+    WAVE_BASE_ALIENS: 12,
     WAVE_ALIENS_PER_WAVE: 2,
-    WAVE_SPEED_MULTIPLIER: 0.03,
-    WAVE_SPAWN_INTERVAL_START: 1.2,
-    WAVE_SPAWN_INTERVAL_DECREASE: 0.03,
+    WAVE_SPEED_MULTIPLIER: 0.02,   // 2% per wave (gentler than 3%)
+    WAVE_SPAWN_INTERVAL_START: 1.4, // slightly more breathing room early
+    WAVE_SPAWN_INTERVAL_DECREASE: 0.025,
     WAVE_SPAWN_INTERVAL_FLOOR: 0.5,
     WAVE_PURPLE_INTRO: 6,
     BOSS_EVERY_N_WAVES: 5,

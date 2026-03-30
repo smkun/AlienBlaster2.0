@@ -10,6 +10,9 @@ import { ParticleSystem } from './ParticleSystem.js';
 import { Camera } from './Camera.js';
 import { Background } from './Background.js';
 import { HUD } from '../ui/HUD.js';
+import { ScorePopupManager } from '../ui/ScorePopup.js';
+import { GameOverScreen } from '../ui/GameOverScreen.js';
+import { ScoreManager } from '../systems/ScoreManager.js';
 
 export class Game {
     constructor(canvas, input, assets, audio) {
@@ -26,6 +29,10 @@ export class Game {
         this.camera = new Camera();
         this.particleSystem = new ParticleSystem();
         this.hud = new HUD();
+        this.scorePopups = new ScorePopupManager();
+        this.gameOverScreen = new GameOverScreen();
+        this.scoreManager = new ScoreManager();
+        this.keyListener = null;
     }
 
     start() {
@@ -79,9 +86,11 @@ export class Game {
                 }
                 break;
             case CONFIG.STATES.GAME_OVER:
-                // Keep particles updating for death explosion
                 this.particleSystem.update(dt);
-                if (this.input.wasPressed('Enter') || this.input.wasPressed('Space')) {
+                this.gameOverScreen.update(dt);
+                if (this.gameOverScreen.handleInput(this.input)) {
+                    // Returned true = done viewing scores, go to menu
+                    this.removeKeyListener();
                     this.setState(CONFIG.STATES.MENU);
                 }
                 break;
@@ -220,14 +229,15 @@ export class Game {
             }
         }
 
-        // Particles + HUD
+        // Particles, popups, HUD
         this.particleSystem.update(dt);
+        this.scorePopups.update(dt);
         this.hud.update(dt);
 
         // Check soldier death
         if (this.soldier.health <= 0) {
             this.camera.shake(CONFIG.SHAKE_HEAVY.intensity, CONFIG.SHAKE_HEAVY.duration);
-            this.setState(CONFIG.STATES.GAME_OVER);
+            this.enterGameOver();
             return;
         }
 
@@ -265,6 +275,7 @@ export class Game {
         this.wave = 1;
         this.killsSinceLastPowerUp = 0;
         this.particleSystem.clear();
+        this.scorePopups.clear();
         this.hud = new HUD();
         this.hud.resetControlsHint();
         this.waveManager = new WaveManager();
@@ -281,6 +292,29 @@ export class Game {
         this.setState(CONFIG.STATES.PLAYING);
     }
 
+    enterGameOver() {
+        this.gameOverScreen.reset();
+        // Listen for typed characters for name entry
+        this.keyListener = (e) => {
+            if (e.key === 'Backspace') return; // handled by InputManager
+            this.gameOverScreen.handleKeyPress(e.key);
+            // Submit score when name is entered
+            if (e.key === 'Enter' && this.gameOverScreen.playerName.length > 0 && !this.gameOverScreen.submitted) {
+                this.gameOverScreen.submitted = true;
+                this.scoreManager.addScore(this.gameOverScreen.playerName, this.score, this.wave);
+            }
+        };
+        window.addEventListener('keydown', this.keyListener);
+        this.setState(CONFIG.STATES.GAME_OVER);
+    }
+
+    removeKeyListener() {
+        if (this.keyListener) {
+            window.removeEventListener('keydown', this.keyListener);
+            this.keyListener = null;
+        }
+    }
+
     spawnBoss() {
         this.boss = new BossAlien(this.wave);
         this.audio.playSFX('bossWarning');
@@ -294,6 +328,7 @@ export class Game {
         this.camera.shake(CONFIG.SHAKE_HEAVY.intensity, CONFIG.SHAKE_HEAVY.duration);
         this.audio.playSFX('bossExplosion');
         this.score += this.boss.points;
+        this.scorePopups.add(this.boss.x + this.boss.width / 2, this.boss.y, this.boss.points, '#ff4');
 
         // Drop guaranteed upgrade
         const upgradeType = PowerUp.randomUpgradeType();
@@ -308,6 +343,7 @@ export class Game {
         this.score += alien.points;
         this.killsSinceLastPowerUp++;
         this.audio.playSFX('explosion', 0.5);
+        this.scorePopups.add(alien.x + alien.width / 2, alien.y, alien.points, alien.color);
 
         // Explosion particles colored to alien type
         this.particleSystem.emitExplosion(
@@ -387,6 +423,22 @@ export class Game {
         this.ctx.fillStyle = '#aaa';
         this.ctx.textAlign = 'center';
         this.ctx.fillText('Press ENTER to Start', this.canvas.width / 2, this.canvas.height / 2 + 40);
+
+        // High scores on menu
+        const scores = this.scoreManager.getScores();
+        if (scores.length > 0) {
+            this.ctx.font = '16px monospace';
+            this.ctx.fillStyle = '#ff4';
+            this.ctx.fillText('HIGH SCORES', this.canvas.width / 2, this.canvas.height / 2 + 90);
+            this.ctx.font = '14px monospace';
+            this.ctx.fillStyle = '#ccc';
+            for (let i = 0; i < Math.min(scores.length, 5); i++) {
+                const s = scores[i];
+                const rank = `${i + 1}.`.padStart(3);
+                const name = s.name.padEnd(10);
+                this.ctx.fillText(`${rank} ${name} ${s.score}`, this.canvas.width / 2, this.canvas.height / 2 + 115 + i * 22);
+            }
+        }
     }
 
     renderGame() {
@@ -432,8 +484,9 @@ export class Game {
             this.soldier.render(ctx, assets);
         }
 
-        // Particles (on top of everything)
+        // Particles and score popups (on top of everything)
         this.particleSystem.render(ctx);
+        this.scorePopups.render(ctx);
 
         // Reset camera transform before HUD
         this.camera.resetTransform(ctx);
@@ -474,26 +527,9 @@ export class Game {
     renderGameOver() {
         this.background.render(this.ctx, this.assets);
         this.particleSystem.render(this.ctx);
-
-        const goImg = this.assets.getImage('gameover');
-        if (goImg) {
-            const w = 400;
-            const h = 80;
-            this.ctx.drawImage(goImg, (this.canvas.width - w) / 2, this.canvas.height / 2 - 60, w, h);
-        } else {
-            this.ctx.fillStyle = '#f44';
-            this.ctx.font = '48px monospace';
-            this.ctx.textAlign = 'center';
-            this.ctx.fillText('GAME OVER', this.canvas.width / 2, this.canvas.height / 2 - 20);
-        }
-
-        this.ctx.font = '24px monospace';
-        this.ctx.fillStyle = '#fff';
-        this.ctx.textAlign = 'center';
-        this.ctx.fillText(`Score: ${this.score}  |  Wave: ${this.wave}`, this.canvas.width / 2, this.canvas.height / 2 + 20);
-
-        this.ctx.font = '20px monospace';
-        this.ctx.fillStyle = '#aaa';
-        this.ctx.fillText('Press ENTER to Continue', this.canvas.width / 2, this.canvas.height / 2 + 60);
+        this.gameOverScreen.render(
+            this.ctx, this.assets, this.score, this.wave,
+            this.scoreManager.getScores()
+        );
     }
 }
