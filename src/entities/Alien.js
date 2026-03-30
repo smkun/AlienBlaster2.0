@@ -47,14 +47,25 @@ export class Alien extends Entity {
         return this.x + this.width < 0;
     }
 
-    render(ctx) {
+    render(ctx, assets) {
+        // Hit flash — draw white silhouette
         if (this.flashTimer > 0) {
+            ctx.globalAlpha = 0.8;
             ctx.fillStyle = '#fff';
-        } else {
-            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.globalAlpha = 1;
         }
-        ctx.fillRect(this.x, this.y, this.width, this.height);
 
+        // Alien sprite
+        const img = assets?.getImage(`alien-${this.type}`);
+        if (img && this.flashTimer <= 0) {
+            ctx.drawImage(img, this.x, this.y, this.width, this.height);
+        } else if (!img) {
+            ctx.fillStyle = this.flashTimer > 0 ? '#fff' : this.color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+
+        // Health bar for tanky aliens
         if (this.maxHealth > 2) {
             const barWidth = this.width;
             const barHeight = 4;

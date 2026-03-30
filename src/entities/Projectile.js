@@ -13,8 +13,11 @@ export class Projectile extends Entity {
         this.vx = isRocket ? CONFIG.ROCKET_SPEED : CONFIG.LASER_SPEED;
     }
 
-    render(ctx) {
-        if (this.type === 'rocket') {
+    render(ctx, assets) {
+        const img = assets?.getImage(this.type === 'rocket' ? 'rocket' : 'laser');
+        if (img) {
+            ctx.drawImage(img, this.x, this.y, this.width, this.height);
+        } else if (this.type === 'rocket') {
             ctx.fillStyle = '#00e5ff';
             ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = 'rgba(0, 229, 255, 0.3)';

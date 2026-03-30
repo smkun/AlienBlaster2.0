@@ -190,35 +190,66 @@ export class Game {
         }
     }
 
+    renderBackground() {
+        const ctx = this.ctx;
+        const bgStars = this.assets.getImage('bg-stars');
+        if (bgStars) {
+            ctx.drawImage(bgStars, 0, 0, this.canvas.width, this.canvas.height);
+        }
+        const bgNebula = this.assets.getImage('bg-nebula');
+        if (bgNebula) {
+            ctx.drawImage(bgNebula, 0, 0, this.canvas.width, this.canvas.height);
+        }
+    }
+
     renderMenu() {
-        this.ctx.fillStyle = '#fff';
-        this.ctx.font = '48px monospace';
-        this.ctx.textAlign = 'center';
-        this.ctx.fillText('ALIEN BLASTER', this.canvas.width / 2, this.canvas.height / 2 - 40);
+        this.renderBackground();
+
+        const titleImg = this.assets.getImage('title');
+        if (titleImg) {
+            const w = 500;
+            const h = 100;
+            this.ctx.drawImage(titleImg, (this.canvas.width - w) / 2, this.canvas.height / 2 - 100, w, h);
+        } else {
+            this.ctx.fillStyle = '#fff';
+            this.ctx.font = '48px monospace';
+            this.ctx.textAlign = 'center';
+            this.ctx.fillText('ALIEN BLASTER', this.canvas.width / 2, this.canvas.height / 2 - 40);
+        }
+
         this.ctx.font = '20px monospace';
         this.ctx.fillStyle = '#aaa';
-        this.ctx.fillText('Press ENTER to Start', this.canvas.width / 2, this.canvas.height / 2 + 20);
+        this.ctx.textAlign = 'center';
+        this.ctx.fillText('Press ENTER to Start', this.canvas.width / 2, this.canvas.height / 2 + 40);
     }
 
     renderGame() {
         const ctx = this.ctx;
+        const assets = this.assets;
+
+        // Background layers
+        this.renderBackground();
+        const bgFg = assets.getImage('bg-foreground');
+        if (bgFg) {
+            ctx.drawImage(bgFg, 0, 0, this.canvas.width, this.canvas.height);
+        }
 
         // Projectiles
         for (const p of this.projectiles) {
-            p.render(ctx);
+            p.render(ctx, assets);
         }
 
         // Aliens
         for (const a of this.aliens) {
-            a.render(ctx);
+            a.render(ctx, assets);
         }
 
         // Soldier
         if (this.soldier) {
-            this.soldier.render(ctx);
+            this.soldier.render(ctx, assets);
         }
 
-        // Temporary HUD
+        // HUD
         ctx.fillStyle = '#fff';
         ctx.font = '18px monospace';
         ctx.textAlign = 'left';
@@ -253,12 +284,27 @@ export class Game {
     }
 
     renderGameOver() {
-        this.ctx.fillStyle = '#f44';
-        this.ctx.font = '48px monospace';
+        this.renderBackground();
+
+        const goImg = this.assets.getImage('gameover');
+        if (goImg) {
+            const w = 400;
+            const h = 80;
+            this.ctx.drawImage(goImg, (this.canvas.width - w) / 2, this.canvas.height / 2 - 60, w, h);
+        } else {
+            this.ctx.fillStyle = '#f44';
+            this.ctx.font = '48px monospace';
+            this.ctx.textAlign = 'center';
+            this.ctx.fillText('GAME OVER', this.canvas.width / 2, this.canvas.height / 2 - 20);
+        }
+
+        this.ctx.font = '24px monospace';
+        this.ctx.fillStyle = '#fff';
         this.ctx.textAlign = 'center';
-        this.ctx.fillText('GAME OVER', this.canvas.width / 2, this.canvas.height / 2 - 20);
+        this.ctx.fillText(`Score: ${this.score}  |  Wave: ${this.wave}`, this.canvas.width / 2, this.canvas.height / 2 + 20);
+
         this.ctx.font = '20px monospace';
         this.ctx.fillStyle = '#aaa';
-        this.ctx.fillText('Press ENTER to Continue', this.canvas.width / 2, this.canvas.height / 2 + 30);
+        this.ctx.fillText('Press ENTER to Continue', this.canvas.width / 2, this.canvas.height / 2 + 60);
     }
 }

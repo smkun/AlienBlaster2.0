@@ -91,28 +91,42 @@ export class Soldier extends Entity {
         }
     }
 
-    render(ctx) {
+    render(ctx, assets) {
         if (this.invincibleTimer > 0 && Math.floor(this.invincibleTimer * 10) % 2 === 0) {
             return;
         }
 
+        // Shield bubble
         if (this.shieldHits > 0) {
-            ctx.strokeStyle = 'rgba(100, 200, 255, 0.6)';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.arc(
-                this.x + this.width / 2,
-                this.y + this.height / 2,
-                Math.max(this.width, this.height) / 2 + 8,
-                0, Math.PI * 2
-            );
-            ctx.stroke();
+            const shieldImg = assets?.getImage('shield');
+            if (shieldImg) {
+                const size = Math.max(this.width, this.height) + 20;
+                ctx.globalAlpha = 0.6;
+                ctx.drawImage(shieldImg, this.x - 10, this.y - 10, size, size);
+                ctx.globalAlpha = 1;
+            } else {
+                ctx.strokeStyle = 'rgba(100, 200, 255, 0.6)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(
+                    this.x + this.width / 2,
+                    this.y + this.height / 2,
+                    Math.max(this.width, this.height) / 2 + 8,
+                    0, Math.PI * 2
+                );
+                ctx.stroke();
+            }
         }
 
-        ctx.fillStyle = '#4488ff';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-
-        ctx.fillStyle = '#88bbff';
-        ctx.fillRect(this.x + this.width - 10, this.y + this.height / 2 - 4, 10, 8);
+        // Soldier sprite
+        const img = assets?.getImage('soldier');
+        if (img) {
+            ctx.drawImage(img, this.x, this.y, this.width, this.height);
+        } else {
+            ctx.fillStyle = '#4488ff';
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = '#88bbff';
+            ctx.fillRect(this.x + this.width - 10, this.y + this.height / 2 - 4, 10, 8);
+        }
     }
 }
