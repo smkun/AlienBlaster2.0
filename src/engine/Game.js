@@ -9,20 +9,23 @@ import { WaveManager } from '../systems/WaveManager.js';
 import { ParticleSystem } from './ParticleSystem.js';
 import { Camera } from './Camera.js';
 import { Background } from './Background.js';
+import { HUD } from '../ui/HUD.js';
 
 export class Game {
-    constructor(canvas, input, assets) {
+    constructor(canvas, input, assets, audio) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.canvas.width = CONFIG.CANVAS_WIDTH;
         this.canvas.height = CONFIG.CANVAS_HEIGHT;
         this.input = input;
         this.assets = assets;
+        this.audio = audio;
         this.state = CONFIG.STATES.LOADING;
         this.lastTime = 0;
         this.background = new Background();
         this.camera = new Camera();
         this.particleSystem = new ParticleSystem();
+        this.hud = new HUD();
     }
 
     start() {
@@ -58,6 +61,7 @@ export class Game {
                 break;
             case CONFIG.STATES.MENU:
                 if (this.input.wasPressed('Enter') || this.input.wasPressed('Space')) {
+                    this.audio.init(); // AudioContext requires user gesture
                     this.startNewGame();
                 }
                 break;
@@ -91,6 +95,10 @@ export class Game {
             return;
         }
 
+        if (this.input.wasPressed('KeyM')) {
+            this.audio.toggleMute();
+        }
+
         // Soldier
         this.soldier.update(dt, this.input);
 
@@ -107,6 +115,7 @@ export class Game {
                 this.projectiles.push(new Projectile(sx, sy, 'laser'));
             }
             this.particleSystem.emitFlash(sx, sy);
+            this.audio.playSFX('laser', 0.6);
         }
 
         // Shooting — rocket
@@ -116,6 +125,7 @@ export class Game {
             const sy = this.soldier.y + this.soldier.height / 2;
             this.projectiles.push(new Projectile(sx, sy, 'rocket'));
             this.particleSystem.emitFlash(sx, sy);
+            this.audio.playSFX('rocket', 0.8);
         }
 
         // Update projectiles + rocket trails
@@ -137,6 +147,7 @@ export class Game {
                 this.soldier.takeDamage(1);
                 this.aliens.splice(i, 1);
                 this.camera.shake(CONFIG.SHAKE_LIGHT.intensity, CONFIG.SHAKE_LIGHT.duration);
+                this.audio.playSFX('hit', 0.4);
             }
         }
 
@@ -209,8 +220,9 @@ export class Game {
             }
         }
 
-        // Particles
+        // Particles + HUD
         this.particleSystem.update(dt);
+        this.hud.update(dt);
 
         // Check soldier death
         if (this.soldier.health <= 0) {
@@ -253,12 +265,15 @@ export class Game {
         this.wave = 1;
         this.killsSinceLastPowerUp = 0;
         this.particleSystem.clear();
+        this.hud = new HUD();
+        this.hud.resetControlsHint();
         this.waveManager = new WaveManager();
         this.waveManager.startWave(this.wave);
         this.setState(CONFIG.STATES.PLAYING);
     }
 
     startNextWave() {
+        this.audio.playSFX('waveComplete');
         this.wave++;
         this.enemyProjectiles = [];
         this.boss = null;
@@ -268,15 +283,16 @@ export class Game {
 
     spawnBoss() {
         this.boss = new BossAlien(this.wave);
+        this.audio.playSFX('bossWarning');
     }
 
     onBossKilled() {
-        // Particles
         this.particleSystem.emitBossExplosion(
             this.boss.x + this.boss.width / 2,
             this.boss.y + this.boss.height / 2
         );
         this.camera.shake(CONFIG.SHAKE_HEAVY.intensity, CONFIG.SHAKE_HEAVY.duration);
+        this.audio.playSFX('bossExplosion');
         this.score += this.boss.points;
 
         // Drop guaranteed upgrade
@@ -291,6 +307,7 @@ export class Game {
     onAlienKilled(alien) {
         this.score += alien.points;
         this.killsSinceLastPowerUp++;
+        this.audio.playSFX('explosion', 0.5);
 
         // Explosion particles colored to alien type
         this.particleSystem.emitExplosion(
@@ -311,6 +328,11 @@ export class Game {
 
     onPowerUpCollected(powerUp) {
         powerUp.apply(this.soldier);
+        if (powerUp.type === 'shield') {
+            this.audio.playSFX('shieldUp');
+        } else {
+            this.audio.playSFX('powerup');
+        }
         this.particleSystem.emitExplosion(
             powerUp.x + powerUp.width / 2,
             powerUp.y + powerUp.height / 2,
@@ -422,23 +444,7 @@ export class Game {
         }
 
         // HUD
-        ctx.fillStyle = '#fff';
-        ctx.font = '18px monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText(`Health: ${this.soldier?.health || 0}`, 10, 25);
-        ctx.fillText(`Ammo: ${this.soldier?.ammo || 0}`, 10, 50);
-        ctx.fillText(`Score: ${this.score}`, 10, 75);
-        ctx.fillText(`Wave: ${this.wave}`, 10, 100);
-
-        // Active upgrade indicator
-        if (this.soldier?.activeUpgrade) {
-            ctx.fillStyle = '#ff4';
-            ctx.fillText(`[${this.soldier.activeUpgrade.toUpperCase()}] ${Math.ceil(this.soldier.upgradeTimer)}s`, 10, 125);
-        }
-        if (this.soldier?.shieldHits > 0) {
-            ctx.fillStyle = '#4af';
-            ctx.fillText(`Shield: ${this.soldier.shieldHits}`, 10, 150);
-        }
+        this.hud.render(ctx, this);
     }
 
     renderPauseOverlay() {

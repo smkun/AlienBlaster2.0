@@ -1,10 +1,13 @@
 import { Game } from './engine/Game.js';
 import { InputManager } from './engine/InputManager.js';
 import { AssetManager } from './engine/AssetManager.js';
+import { AudioManager } from './engine/AudioManager.js';
+import { SoundGenerator } from './engine/SoundGenerator.js';
 
 const canvas = document.getElementById('gameCanvas');
 const input = new InputManager();
 const assets = new AssetManager();
+const audio = new AudioManager();
 
 const manifest = {
     images: {
@@ -31,9 +34,23 @@ const manifest = {
     audio: {},
 };
 
-const game = new Game(canvas, input, assets);
+const game = new Game(canvas, input, assets, audio);
 game.start();
 
+// Load image assets
 assets.loadAll(manifest).then(() => {
-    console.log('All assets loaded');
+    console.log('All image assets loaded');
 });
+
+// Generate procedural sounds on first user click (AudioContext needs gesture)
+let soundsGenerated = false;
+document.addEventListener('click', async () => {
+    if (soundsGenerated) return;
+    soundsGenerated = true;
+    audio.init();
+    const sounds = await SoundGenerator.generateAll(audio.ctx);
+    for (const [key, buffer] of Object.entries(sounds)) {
+        audio.sounds[key] = buffer;
+    }
+    console.log('All sounds generated');
+}, { once: true });
