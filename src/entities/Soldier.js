@@ -128,5 +128,26 @@ export class Soldier extends Entity {
             ctx.fillStyle = '#88bbff';
             ctx.fillRect(this.x + this.width - 10, this.y + this.height / 2 - 4, 10, 8);
         }
+
+        // Small HP bar above soldier
+        const barWidth = this.width;
+        const barHeight = 4;
+        const barX = this.x;
+        const barY = this.y - 8;
+        const healthPercent = Math.max(0, this.health / this.maxHealth);
+
+        // Background
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillRect(barX - 1, barY - 1, barWidth + 2, barHeight + 2);
+
+        // Fill with color transition
+        if (healthPercent > 0.5) {
+            ctx.fillStyle = '#4f4';
+        } else if (healthPercent > 0.25) {
+            ctx.fillStyle = '#ff4';
+        } else {
+            ctx.fillStyle = '#f44';
+        }
+        ctx.fillRect(barX, barY, barWidth * healthPercent, barHeight);
     }
 }
