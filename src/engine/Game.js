@@ -478,22 +478,6 @@ export class Game {
         this.ctx.fillStyle = '#aaa';
         this.ctx.textAlign = 'center';
         this.ctx.fillText('Press ENTER to Start', this.canvas.width / 2, this.canvas.height / 2 + 40);
-
-        // High scores on menu
-        const scores = this.scoreManager.getScores();
-        if (scores.length > 0) {
-            this.ctx.font = '16px monospace';
-            this.ctx.fillStyle = '#ff4';
-            this.ctx.fillText('HIGH SCORES', this.canvas.width / 2, this.canvas.height / 2 + 90);
-            this.ctx.font = '14px monospace';
-            this.ctx.fillStyle = '#ccc';
-            for (let i = 0; i < Math.min(scores.length, 5); i++) {
-                const s = scores[i];
-                const rank = `${i + 1}.`.padStart(3);
-                const name = s.name.padEnd(10);
-                this.ctx.fillText(`${rank} ${name} ${s.score}`, this.canvas.width / 2, this.canvas.height / 2 + 115 + i * 22);
-            }
-        }
     }
 
     renderGame() {
