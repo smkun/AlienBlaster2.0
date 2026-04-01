@@ -21,24 +21,35 @@ src/
   config/
     gameConfig.js      — All tunable constants
   engine/
-    Game.js            — Core loop, state machine, rendering
+    Game.js            — Core loop, state machine, rendering, HTML stats sync
     AssetManager.js    — Image/audio preloading, loading screen
+    AudioManager.js    — Web Audio API, SFX playback, volume/mute persistence
+    Background.js      — 3-layer parallax scrolling
+    Camera.js          — Screen shake system
     InputManager.js    — Keyboard state tracking
+    ParticleSystem.js  — Particle emitter (explosions, trails, flash, sparkle)
+    SoundGenerator.js  — Procedural retro SFX generation
   entities/
     Entity.js          — Base class (position, velocity, hitbox)
     Soldier.js         — Player entity
     Projectile.js      — Laser and rocket
     Alien.js           — 4 alien types (green, red, yellow, purple)
+    BossAlien.js       — Boss with 2 phases, health bar, attacks
+    PowerUp.js         — 5 power-up types
   systems/
     CollisionSystem.js — AABB collision detection
     WaveManager.js     — Wave progression, difficulty scaling
     ScoreManager.js    — High scores with localStorage
-  ui/                  — (Phase 4: HUD, menus)
+  ui/
+    HUD.js             — Canvas HUD overlay (health, ammo, score, upgrades)
+    ScorePopup.js      — Floating score text on kills
+    GameOverScreen.js  — Name entry, high scores display
 assets/
   images/              — 19 SVG sprites (soldier, aliens, projectiles, power-ups, backgrounds, UI)
-  sounds/              — (Phase 4: SFX and music)
-  fonts/               — (Phase 4: custom fonts)
-index.html
+  sounds/              — (procedural via SoundGenerator, no files needed)
+  fonts/               — (using Google Fonts Orbitron)
+index.html             — Full page layout with side panels, stats bar
+styles.css             — Sci-fi themed CSS (Orbitron font, dark blue gradients, glow effects)
 ```
 
 ## Key Conventions
@@ -49,6 +60,8 @@ index.html
 - AABB collision detection in centralized CollisionSystem (reverse iteration with splice)
 - Assets passed through render calls — entities have rectangle fallbacks if images aren't loaded
 - SVG assets in clean vector/cartoon style with bold outlines
+- HTML page chrome (stats bar, side panels) synced to game state each frame via `syncHTMLStats()`
+- Procedural audio — no audio files, all SFX generated via Web Audio API oscillators
 
 ---
 
@@ -106,11 +119,35 @@ index.html
 - [x] ScoreManager with localStorage persistence wired into game flow
 - [x] Difficulty curve tuned: gentler ramp (12 base aliens, 2% speed/wave, 1.4s spawn start)
 
+### Page Chrome & Styling — COMPLETE
+- [x] Full page layout: title banner, stats bar, game container, side panels, footer
+- [x] `styles.css` — Orbitron font, dark blue gradients, glow effects, sci-fi theme
+- [x] Stats bar with live HP bar (color transitions), ammo, score, wave, mute button
+- [x] Left panel: high scores list synced from ScoreManager/localStorage
+- [x] Right panel: controls guide, alien legend with SVG icons, power-up descriptions
+- [x] Game container with corner decorations and blue glow border
+- [x] Responsive: panels hide on screens < 1100px
+- [x] `Game.js` syncs HTML stats bar each frame via `syncHTMLStats()` and `syncHighScoresHTML()`
+
 ---
 
 ## Difficulty Scaling (Key Values)
-- Alien count per wave: `base(15) + wave * 2` (linear growth)
-- Alien speed multiplier: `1.0 + (wave * 0.03)` (3% per wave)
-- Spawn interval: starts 1200ms, -30ms/wave, floor 500ms
+- Alien count per wave: `base(12) + wave * 2` (linear growth)
+- Alien speed multiplier: `1.0 + (wave * 0.02)` (2% per wave)
+- Spawn interval: starts 1400ms, -25ms/wave, floor 500ms
 - Purple aliens introduced at wave 6
 - Bosses every 5 waves, health: `30 + (bossNumber * 10)`
+
+## Controls
+- **Arrow Up/Down** — Move soldier
+- **Space** — Fire laser (1 damage, unlimited)
+- **R** — Fire rocket (5 damage, limited ammo)
+- **ESC / P** — Pause
+- **M** — Mute/unmute
+- **Enter** — Start game, advance waves, submit score
+
+## File Counts
+- 22 source files in `src/`
+- 19 SVG assets in `assets/images/`
+- 1 HTML file, 1 CSS file
+- 2 planning docs in `docs/plans/`
