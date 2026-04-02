@@ -1,151 +1,219 @@
-# Alien Blaster 2.0
+<p align="center">
+  <img src="assets/images/title.svg" alt="Alien Blaster" width="500">
+</p>
 
-A side-scrolling space shooter built with HTML5 Canvas, vanilla JavaScript, and zero frameworks. Defend against waves of aliens, fight bosses, collect power-ups, and climb the global leaderboard.
+<p align="center">
+  <strong>A side-scrolling space shooter built with HTML5 Canvas and vanilla JavaScript.</strong><br>
+  Defend against waves of aliens, fight bosses, collect power-ups, and climb the global leaderboard.
+</p>
 
-**[Play it here](https://32gamers.com/AlienBlaster/)**
+<p align="center">
+  <a href="https://32gamers.com/AlienBlaster/">Play Now</a>
+  &nbsp;&bull;&nbsp;
+  <a href="#controls">Controls</a>
+  &nbsp;&bull;&nbsp;
+  <a href="#architecture">Architecture</a>
+  &nbsp;&bull;&nbsp;
+  <a href="#setup">Setup</a>
+</p>
 
-## Gameplay
+<p align="center">
+  <img src="https://img.shields.io/badge/JavaScript-ES%20Modules-F7DF1E?logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/Canvas-2D-E34F26?logo=html5&logoColor=white" alt="HTML5 Canvas">
+  <img src="https://img.shields.io/badge/Audio-Web%20Audio%20API-8B5CF6" alt="Web Audio">
+  <img src="https://img.shields.io/badge/Backend-PHP%20%2B%20MySQL-777BB4?logo=php&logoColor=white" alt="PHP">
+  <img src="https://img.shields.io/badge/Frameworks-None-22c55e" alt="No Frameworks">
+</p>
 
-You control a space soldier on the left side of the screen. Aliens spawn from the right in waves of increasing difficulty. Shoot them before they reach you.
+---
 
-### Controls
+<p align="center">
+  <img src="docs/screenshots/menu.png" alt="Alien Blaster Menu Screen" width="800">
+</p>
+
+## Features
+
+- 5 alien types with unique movement behaviors
+- Boss fights every 5 waves with escalating difficulty
+- 6 collectible power-ups (weapons, shield, speed boost)
+- Procedural retro sound effects (no audio files)
+- Parallax scrolling starfield with particle effects
+- Screen shake, score pop-ups, and visual juice
+- Global leaderboard via MySQL API
+- Sci-fi themed UI with live stats bar and side panels
+- Zero dependencies, zero build tools
+
+---
+
+## Controls
 
 | Key | Action |
 |-----|--------|
-| Arrow Up / Down | Move soldier |
-| Space | Fire laser (1 damage, unlimited) |
-| R | Fire rocket (5 damage, limited ammo) |
-| ESC / P | Pause |
-| Q | Quit game (when paused) |
-| M | Mute / Unmute |
-| Enter | Start game, advance waves, submit score |
+| `Arrow Up / Down` | Move soldier |
+| `Space` | Fire laser (1 dmg, unlimited) |
+| `R` | Fire rocket (5 dmg, limited ammo) |
+| `ESC / P` | Pause |
+| `Q` | Quit game (when paused) |
+| `M` | Mute / Unmute |
+| `Enter` | Start, advance waves, submit score |
 
-### Alien Types
+---
 
-| Alien | HP | Speed | Points | Behavior |
-|-------|----|-------|--------|----------|
-| Green | 1 | Fast | 1 | Straight line, fodder |
-| Red | 2 | Medium | 2 | Straight line, tougher |
-| Yellow | 8 | Slow | 4 | Tank with health bar |
-| Purple | 3 | Medium | 3 | Sine-wave zigzag pattern |
-| Blue | 2 | Variable | 3 | Hovers, then charges at high speed |
-| Boss | 45+ | Slow | 20+ | Every 5 waves, 2 attack phases |
+## Aliens
 
-### Power-Ups
-
-Power-ups spawn every 5 kills and drop from defeated bosses.
-
-| Power-Up | Effect |
-|----------|--------|
-| Health Pack | +3 HP (max 50) |
-| Ammo Crate | +5 rockets |
-| Spread Shot | 3 lasers in a fan (10s) |
-| Rapid Fire | 2x fire rate (10s) |
-| Shield | Absorbs 3 hits |
-| Speed Boost | 1.8x movement speed (6.5s) |
+<table>
+<tr>
+<td align="center"><img src="assets/images/alien-green.svg" width="50"><br><strong>Green</strong><br>1 HP &bull; Fast<br>1 point</td>
+<td align="center"><img src="assets/images/alien-red.svg" width="50"><br><strong>Red</strong><br>2 HP &bull; Medium<br>2 points</td>
+<td align="center"><img src="assets/images/alien-yellow.svg" width="60"><br><strong>Yellow</strong><br>8 HP &bull; Slow<br>4 points</td>
+<td align="center"><img src="assets/images/alien-purple.svg" width="50"><br><strong>Purple</strong><br>3 HP &bull; Zigzag<br>3 points</td>
+<td align="center"><img src="assets/images/alien-blue.svg" width="50"><br><strong>Blue</strong><br>2 HP &bull; Charger<br>3 points</td>
+<td align="center"><img src="assets/images/alien-boss.svg" width="70"><br><strong>Boss</strong><br>45+ HP &bull; 2 Phases<br>20+ points</td>
+</tr>
+</table>
 
 ### Boss Fights
 
-A boss appears at the end of every 5th wave. Each boss is harder than the last:
+Bosses appear every 5 waves, each harder than the last:
 
-- **Phase 1:** Bounces vertically, spawns minion aliens
-- **Phase 2** (below 50% HP): Faster movement, fires projectiles at the player
-- Bosses scale in health, speed, fire rate, and damage with each appearance
+- **Phase 1** &mdash; Bounces vertically, spawns minion aliens
+- **Phase 2** (below 50% HP) &mdash; Faster movement, fires projectiles at the player
+- Health, speed, fire rate, and damage all scale per boss appearance
 - Defeating a boss drops a guaranteed weapon upgrade
 
-### Difficulty Scaling
+---
 
-The game gets progressively harder each wave:
+## Power-Ups
 
-- More aliens per wave (12 base + 3 per wave)
-- Aliens move 4% faster each wave
-- Spawn rate tightens (1.4s down to 0.35s between spawns)
-- Alien composition shifts from mostly greens to tanks, zigzags, and chargers
-- Purple aliens at wave 6, blue chargers at wave 8
+Power-ups spawn every 5 kills and drop guaranteed from bosses.
 
-## Tech Stack
+<table>
+<tr>
+<td align="center"><img src="assets/images/powerup-health.svg" width="36"><br><strong>Health</strong><br>+3 HP</td>
+<td align="center"><img src="assets/images/powerup-ammo.svg" width="36"><br><strong>Ammo</strong><br>+5 Rockets</td>
+<td align="center"><img src="assets/images/powerup-spreadshot.svg" width="36"><br><strong>Spread</strong><br>3 lasers, 10s</td>
+<td align="center"><img src="assets/images/powerup-rapidfire.svg" width="36"><br><strong>Rapid Fire</strong><br>2x rate, 10s</td>
+<td align="center"><img src="assets/images/powerup-shield.svg" width="36"><br><strong>Shield</strong><br>3 hits</td>
+<td align="center"><img src="assets/images/powerup-speed.svg" width="36"><br><strong>Speed</strong><br>1.8x move, 6.5s</td>
+</tr>
+</table>
 
-- **Rendering:** HTML5 Canvas 2D (1200x800)
-- **Language:** Vanilla JavaScript with ES modules and classes
-- **Audio:** Web Audio API with procedurally generated retro sound effects
-- **Art:** 21 SVG sprites in clean vector/cartoon style
-- **Backend:** PHP + MySQL for global high scores
-- **Hosting:** Static files on iFastNet, no build tools required
+---
+
+## Difficulty Scaling
+
+The game gets harder every wave:
+
+| Mechanic | Scaling |
+|----------|---------|
+| Aliens per wave | 12 base + 3 per wave |
+| Alien speed | +4% per wave |
+| Spawn rate | 1.4s &rarr; 0.35s floor |
+| Purple aliens | Wave 6+ |
+| Blue chargers | Wave 8+ |
+| Bosses | Every 5 waves, scaling stats |
+| Late game (15+) | Mostly tanks, zigzags, chargers |
+
+---
 
 ## Architecture
 
-The codebase follows an entity-component pattern with centralized systems:
+22 source files following an entity-system pattern with centralized configuration.
 
 ```
 src/
   main.js                  Entry point, asset manifest, audio init
   config/
     gameConfig.js          All tunable constants (no magic numbers)
-  engine/
-    Game.js                Core loop, state machine, system orchestration
-    AssetManager.js        SVG/audio preloading with loading screen
-    AudioManager.js        Web Audio API, volume/mute with localStorage persistence
-    Background.js          3-layer parallax scrolling starfield
+
+  engine/                  Core systems
+    Game.js                Game loop, state machine, system orchestration
+    AssetManager.js        SVG preloading with progress bar
+    AudioManager.js        Web Audio API, volume/mute persistence
+    Background.js          3-layer parallax scrolling
     Camera.js              Screen shake with intensity decay
-    InputManager.js        Keyboard state tracking (held keys + single-frame presses)
-    ParticleSystem.js      Particle emitter (explosions, trails, flash, sparkle)
+    InputManager.js        Keyboard state (held + single-frame press)
+    ParticleSystem.js      Particle emitter: explosions, trails, flash, sparkle
     SoundGenerator.js      Procedural retro SFX via oscillator synthesis
-  entities/
-    Entity.js              Base class: position, velocity, hitbox, update(dt), render(ctx)
+
+  entities/                Game objects
+    Entity.js              Base class: position, velocity, hitbox, update, render
     Soldier.js             Player: movement, weapons, shields, upgrades, HP bar
-    Alien.js               5 types with config-driven stats and unique behaviors
-    BossAlien.js           2-phase boss with scaling difficulty per appearance
-    Projectile.js          Laser and rocket with damage and speed from config
-    PowerUp.js             6 types with weighted random spawning and bobbing animation
-  systems/
-    CollisionSystem.js     AABB detection: projectile/alien, alien/soldier, powerup/soldier
-    WaveManager.js         Wave progression, spawn timing, alien type distribution
-    ScoreManager.js        Fetch/submit scores via PHP API, localStorage fallback
-  ui/
+    Alien.js               5 types with unique behaviors (charge, zigzag, tank)
+    BossAlien.js           2-phase boss with per-appearance scaling
+    Projectile.js          Laser and rocket
+    PowerUp.js             6 types with weighted random + bobbing animation
+
+  systems/                 Game logic
+    CollisionSystem.js     AABB: projectile/alien, alien/soldier, powerup/soldier
+    WaveManager.js         Wave progression, spawn timing, type distribution
+    ScoreManager.js        API client with localStorage fallback
+
+  ui/                      Presentation
     HUD.js                 Canvas overlay: upgrade timers, controls hint
     ScorePopup.js          Floating "+N" text on kills
-    GameOverScreen.js      Name entry with blinking cursor, high scores table
+    GameOverScreen.js      Name entry, high scores table
 
-api/
-  scores.php               REST API: GET top 20 / POST score (upsert if higher)
-  config.php               Database credentials (gitignored)
+api/                       Backend
+  scores.php               GET top 20 / POST score (upsert if higher)
+  config.php               DB credentials (gitignored)
   config.example.php       Template for deployment
 
-assets/images/             21 SVG sprites (aliens, soldier, projectiles, power-ups, backgrounds, UI)
-index.html                 Page layout with stats bar, side panels, game container
-styles.css                 Sci-fi theme (Orbitron font, dark gradients, glow effects)
+assets/images/             21 SVG sprites
+index.html                 Page layout with stats bar and side panels
+styles.css                 Sci-fi theme (Orbitron font, gradients, glow)
 ```
 
-### Key Design Decisions
+### Design Highlights
 
-**deltaTime-based movement:** All entity movement multiplies velocity by `dt` (seconds since last frame). This makes the game run at consistent speed regardless of frame rate.
+| Concept | Approach |
+|---------|----------|
+| **Frame-rate independence** | All movement uses `velocity * deltaTime` |
+| **State machine** | 6 states eliminate boolean flag soup |
+| **Collision** | Centralized AABB with reverse-iteration splice |
+| **Config-driven** | All tuning in one file, no magic numbers |
+| **Procedural audio** | 10 SFX generated from oscillators, zero audio files |
+| **Asset fallbacks** | Every sprite has a colored-rectangle fallback |
+| **Offline support** | Scores cached in localStorage when API unreachable |
 
-**State machine:** The game has 6 states (loading, menu, playing, paused, wave-complete, game-over). Each state has its own update and render logic, eliminating boolean flag soup.
+---
 
-**Centralized collision:** Instead of per-entity interval-based collision checks (the old codebase's approach, which caused bugs), a single `CollisionSystem.processCollisions()` runs once per frame using reverse-iteration with splice to avoid index corruption.
+## Tech Stack
 
-**Config-driven entities:** All alien types, weapon stats, difficulty curves, and timing values live in `gameConfig.js`. Tuning the game means changing numbers in one file.
+| Layer | Technology |
+|-------|-----------|
+| Rendering | HTML5 Canvas 2D (1200x800) |
+| Language | Vanilla JavaScript (ES modules, classes) |
+| Audio | Web Audio API (procedural synthesis) |
+| Art | 21 hand-crafted SVG sprites |
+| Styling | CSS3 with Orbitron font |
+| Backend | PHP + MySQL (global leaderboard) |
+| Hosting | Static files on iFastNet |
+| Build tools | None |
+| Frameworks | None |
 
-**Procedural audio:** No audio files needed. `SoundGenerator` creates 10 retro sound effects (laser, rocket, explosions, power-up chimes, shield, boss alarm) by rendering oscillator waveforms directly into AudioBuffers.
-
-**Asset fallbacks:** Every entity's `render()` method checks if the SVG sprite loaded. If not, it draws a colored rectangle. The game is fully playable without any images.
-
-**Global leaderboard:** `ScoreManager` talks to a PHP API backed by MySQL. Scores are cached in localStorage so the game works offline. The `UNIQUE` constraint on player name means duplicate names update the existing score (only if higher).
+---
 
 ## Setup
 
 ### Local Development
 
-1. Clone the repo
-2. Open `index.html` with a local server (e.g., VS Code Live Server)
-3. No build step, no `npm install` — it just works
+```bash
+git clone https://github.com/smkun/AlienBlaster2.0.git
+cd AlienBlaster2.0
+# Open with VS Code Live Server, or:
+python3 -m http.server 8080
+# Visit http://localhost:8080
+```
 
-### Deployment (iFastNet or any PHP host)
+No build step. No `npm install`. It just works.
+
+### Deployment (PHP host)
 
 1. Upload all files to your web host
 2. Copy `api/config.example.php` to `api/config.php`
-3. Fill in your MySQL credentials in `config.php`
-4. Create the database table:
+3. Fill in your MySQL credentials
+4. Create the table:
 
 ```sql
 CREATE TABLE high_scores (
@@ -157,7 +225,9 @@ CREATE TABLE high_scores (
 );
 ```
 
-If no database is available, the game still works — scores save to localStorage instead.
+No database? No problem &mdash; scores save to localStorage instead.
+
+---
 
 ## Credits
 
