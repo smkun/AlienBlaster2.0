@@ -53,8 +53,12 @@ export class WaveManager {
         const wave = this.wave;
 
         const hasPurple = wave >= CONFIG.WAVE_PURPLE_INTRO;
+        const hasBlue = wave >= CONFIG.WAVE_BLUE_INTRO;
 
-        if (hasPurple && roll < 0.15) return 'purple';
+        // Special types get a flat chance first
+        if (hasBlue && roll < 0.10) return 'blue';
+        if (hasPurple && roll < 0.20) return 'purple';
+
         if (wave < 3) {
             // Waves 1-2: mostly green, learning curve
             if (roll < 0.70) return 'green';
@@ -67,16 +71,18 @@ export class WaveManager {
             if (roll < 0.85) return 'yellow';
             return hasPurple ? 'purple' : 'green';
         } else if (wave < 15) {
-            // Waves 8-14: fewer greens, more heavies
-            if (roll < 0.15) return 'green';
-            if (roll < 0.45) return 'red';
-            if (roll < 0.75) return 'yellow';
+            // Waves 8-14: fewer greens, more heavies + chargers
+            if (roll < 0.10) return 'green';
+            if (roll < 0.35) return 'red';
+            if (roll < 0.60) return 'yellow';
+            if (hasBlue && roll < 0.75) return 'blue';
             return hasPurple ? 'purple' : 'red';
         } else {
-            // Waves 15+: brutal — mostly tanks and zigzags
-            if (roll < 0.10) return 'green';
-            if (roll < 0.30) return 'red';
-            if (roll < 0.65) return 'yellow';
+            // Waves 15+: brutal — tanks, zigzags, chargers
+            if (roll < 0.05) return 'green';
+            if (roll < 0.25) return 'red';
+            if (roll < 0.50) return 'yellow';
+            if (hasBlue && roll < 0.70) return 'blue';
             return hasPurple ? 'purple' : 'yellow';
         }
     }

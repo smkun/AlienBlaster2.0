@@ -48,6 +48,10 @@ export class HUD {
                     color = '#ffff44';
                     label = 'RAPID';
                     break;
+                case 'speed':
+                    color = '#ff8844';
+                    label = 'SPEED';
+                    break;
                 default:
                     color = '#fff';
                     label = soldier.activeUpgrade.toUpperCase();

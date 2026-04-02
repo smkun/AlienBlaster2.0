@@ -21,12 +21,16 @@ export class Soldier extends Entity {
     }
 
     update(dt, input) {
+        const speed = this.activeUpgrade === 'speed'
+            ? CONFIG.SOLDIER_SPEED * CONFIG.SPEED_BOOST_MULTIPLIER
+            : CONFIG.SOLDIER_SPEED;
+
         this.vy = 0;
         if (input.isDown('ArrowUp')) {
-            this.vy = -CONFIG.SOLDIER_SPEED;
+            this.vy = -speed;
         }
         if (input.isDown('ArrowDown')) {
-            this.vy = CONFIG.SOLDIER_SPEED;
+            this.vy = speed;
         }
 
         super.update(dt);
@@ -87,7 +91,9 @@ export class Soldier extends Entity {
             this.shieldHits = 3;
         } else {
             this.activeUpgrade = type;
-            this.upgradeTimer = CONFIG.UPGRADE_DURATION;
+            this.upgradeTimer = type === 'speed'
+                ? CONFIG.SPEED_BOOST_DURATION
+                : CONFIG.UPGRADE_DURATION;
         }
     }
 

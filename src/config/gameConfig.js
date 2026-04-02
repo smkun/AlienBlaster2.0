@@ -30,7 +30,13 @@ export const CONFIG = {
         red:    { health: 2, speed: 120, points: 2, width: 60, height: 60, color: '#ff4444' },
         yellow: { health: 8, speed: 60,  points: 4, width: 80, height: 60, color: '#ffff44' },
         purple: { health: 3, speed: 130, points: 3, width: 60, height: 60, color: '#aa44ff' },
+        blue:   { health: 2, speed: 60,  points: 3, width: 60, height: 60, color: '#4488ff' },
     },
+
+    // Blue alien (charger) settings
+    BLUE_CHARGE_DELAY: 1.2,     // seconds hovering before charge
+    BLUE_CHARGE_SPEED: 500,     // pixels/sec during charge
+    WAVE_BLUE_INTRO: 8,         // wave number blue aliens appear
 
     // Difficulty scaling
     WAVE_BASE_ALIENS: 12,
@@ -51,6 +57,8 @@ export const CONFIG = {
     HEALTH_PACK_AMOUNT: 3,
     AMMO_PACK_AMOUNT: 5,
     UPGRADE_DURATION: 10,
+    SPEED_BOOST_DURATION: 6.5,
+    SPEED_BOOST_MULTIPLIER: 1.8,
 
     // Particles
     PARTICLE_EXPLOSION_COUNT: 15,

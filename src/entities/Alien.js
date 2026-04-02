@@ -17,24 +17,52 @@ export class Alien extends Entity {
         const speedMultiplier = 1 + (wave - 1) * CONFIG.WAVE_SPEED_MULTIPLIER;
         this.vx = -(this.baseSpeed * speedMultiplier);
 
+        // Purple zigzag
         this.zigzagTime = 0;
         this.zigzagAmplitude = 80;
         this.zigzagFrequency = 3;
         this.baseY = this.y;
 
+        // Blue charger
+        this.chargeState = 'hovering'; // 'hovering' | 'charging'
+        this.chargeTimer = CONFIG.BLUE_CHARGE_DELAY;
+
         this.flashTimer = 0;
     }
 
     update(dt) {
-        super.update(dt);
+        if (this.type === 'blue') {
+            this.updateCharger(dt);
+        } else {
+            super.update(dt);
 
-        if (this.type === 'purple') {
-            this.zigzagTime += dt;
-            this.y = this.baseY + Math.sin(this.zigzagTime * this.zigzagFrequency) * this.zigzagAmplitude;
-            this.y = Math.max(0, Math.min(this.y, CONFIG.CANVAS_HEIGHT - this.height));
+            if (this.type === 'purple') {
+                this.zigzagTime += dt;
+                this.y = this.baseY + Math.sin(this.zigzagTime * this.zigzagFrequency) * this.zigzagAmplitude;
+                this.y = Math.max(0, Math.min(this.y, CONFIG.CANVAS_HEIGHT - this.height));
+            }
         }
 
         if (this.flashTimer > 0) this.flashTimer -= dt;
+    }
+
+    updateCharger(dt) {
+        if (this.chargeState === 'hovering') {
+            // Drift in slowly then stop
+            if (this.x > CONFIG.CANVAS_WIDTH - 150) {
+                this.x -= 40 * dt;
+            }
+            // Subtle bob while hovering
+            this.y += Math.sin(Date.now() / 200) * 0.5;
+            this.chargeTimer -= dt;
+            if (this.chargeTimer <= 0) {
+                this.chargeState = 'charging';
+                this.vx = -CONFIG.BLUE_CHARGE_SPEED;
+            }
+        } else {
+            // Charging — just move left fast
+            this.x += this.vx * dt;
+        }
     }
 
     takeDamage(amount) {

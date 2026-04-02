@@ -7,6 +7,7 @@ const POWERUP_TYPES = {
     spreadshot: { color: '#ffaa44', assetKey: 'powerup-spreadshot' },
     rapidfire:  { color: '#ffff44', assetKey: 'powerup-rapidfire' },
     shield:     { color: '#44aaff', assetKey: 'powerup-shield' },
+    speed:      { color: '#ff8844', assetKey: 'powerup-speed' },
 };
 
 export class PowerUp extends Entity {
@@ -43,6 +44,9 @@ export class PowerUp extends Entity {
             case 'shield':
                 soldier.applyUpgrade('shield');
                 break;
+            case 'speed':
+                soldier.applyUpgrade('speed');
+                break;
         }
     }
 
@@ -64,16 +68,17 @@ export class PowerUp extends Entity {
     static randomType() {
         // Weighted: health and ammo more common
         const roll = Math.random();
-        if (roll < 0.30) return 'health';
-        if (roll < 0.60) return 'ammo';
-        if (roll < 0.75) return 'spreadshot';
-        if (roll < 0.90) return 'rapidfire';
+        if (roll < 0.25) return 'health';
+        if (roll < 0.50) return 'ammo';
+        if (roll < 0.65) return 'spreadshot';
+        if (roll < 0.78) return 'rapidfire';
+        if (roll < 0.90) return 'speed';
         return 'shield';
     }
 
     static randomUpgradeType() {
-        // For boss drops — only weapon/shield upgrades
-        const types = ['spreadshot', 'rapidfire', 'shield'];
+        // For boss drops — only weapon/shield/speed upgrades
+        const types = ['spreadshot', 'rapidfire', 'shield', 'speed'];
         return types[Math.floor(Math.random() * types.length)];
     }
 }

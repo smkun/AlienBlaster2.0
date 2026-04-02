@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+  <defs>
+    <radialGradient id="blueBody" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#66aaff"/>
+      <stop offset="100%" stop-color="#4488ff"/>
+    </radialGradient>
+    <radialGradient id="blueEye" cx="40%" cy="35%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ddeeff"/>
+    </radialGradient>
+    <linearGradient id="blueHorn" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#4488ff"/>
+      <stop offset="100%" stop-color="#aaddff"/>
+    </linearGradient>
+  </defs>
+  <!-- Central charging horn / nose spike -->
+  <polygon points="30,0 26,14 34,14" fill="url(#blueHorn)" stroke="#222" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Side horns (swept back, aggressive) -->
+  <polygon points="14,18 2,8 12,22" fill="#3366cc" stroke="#222" stroke-width="2" stroke-linejoin="round"/>
+  <polygon points="46,18 58,8 48,22" fill="#3366cc" stroke="#222" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Main head — elongated horizontally for aerodynamic look -->
+  <ellipse cx="30" cy="24" rx="22" ry="14" fill="url(#blueBody)" stroke="#222" stroke-width="2"/>
+  <!-- Streamlined body — tapers to a tail -->
+  <path d="M18 34 Q30 56 42 34" fill="url(#blueBody)" stroke="#222" stroke-width="2"/>
+  <!-- Neck / connection -->
+  <rect x="20" y="32" width="20" height="6" fill="#4488ff" stroke="none"/>
+  <!-- Speed lines / fins on body -->
+  <path d="M16 36 L6 44 L14 38" fill="#3366cc" stroke="#222" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M44 36 L54 44 L46 38" fill="#3366cc" stroke="#222" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Rear thruster fins -->
+  <polygon points="24,48 20,56 28,50" fill="#3366cc" stroke="#222" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="36,48 40,56 32,50" fill="#3366cc" stroke="#222" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Thruster glow -->
+  <ellipse cx="30" cy="50" rx="5" ry="3" fill="#88ccff" opacity="0.6" stroke="none"/>
+  <!-- Left eye (narrow, determined) -->
+  <ellipse cx="22" cy="22" rx="7" ry="5" fill="url(#blueEye)" stroke="#222" stroke-width="2"/>
+  <!-- Right eye -->
+  <ellipse cx="38" cy="22" rx="7" ry="5" fill="url(#blueEye)" stroke="#222" stroke-width="2"/>
+  <!-- Left pupil (sharp, forward-focused) -->
+  <ellipse cx="24" cy="22" rx="3" ry="4" fill="#111"/>
+  <circle cx="23" cy="20.5" r="1" fill="#fff"/>
+  <!-- Right pupil -->
+  <ellipse cx="40" cy="22" rx="3" ry="4" fill="#111"/>
+  <circle cx="39" cy="20.5" r="1" fill="#fff"/>
+  <!-- Heavy angry brows (steep, aggressive) -->
+  <path d="M14 16 L22 19" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+  <path d="M46 16 L38 19" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+  <!-- Grimace / gritted teeth mouth -->
+  <path d="M23 30 L37 30" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+  <!-- Teeth (gritted, aggressive) -->
+  <rect x="24" y="28" width="3" height="4" rx="0.5" fill="#fff" stroke="#222" stroke-width="1"/>
+  <rect x="28.5" y="28" width="3" height="4" rx="0.5" fill="#fff" stroke="#222" stroke-width="1"/>
+  <rect x="33" y="28" width="3" height="4" rx="0.5" fill="#fff" stroke="#222" stroke-width="1"/>
+  <!-- Forehead armor plate -->
+  <path d="M22 14 L30 11 L38 14" fill="none" stroke="#2266cc" stroke-width="2" stroke-linecap="round"/>
+</svg>
