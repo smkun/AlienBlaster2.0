@@ -1,0 +1,19 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "31.22.4.44",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Division 2 - Production",
+            "database": "gamers_divtrack",
+            "username": "gamers_sa",
+            "password": "S{bO_,[]MeZ]u$RQ"
+        }
+    ]
+}
