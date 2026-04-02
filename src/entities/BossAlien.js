@@ -105,15 +105,13 @@ export class BossAlien extends Entity {
         const img = assets?.getImage('alien-boss');
 
         if (img) {
-            // Always draw the sprite
             ctx.drawImage(img, this.x, this.y, this.width, this.height);
 
-            // Hit flash — white tint overlay on top of sprite
+            // Hit flash — brighten by drawing sprite again at partial alpha
             if (this.flashTimer > 0) {
-                ctx.globalCompositeOperation = 'source-atop';
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-                ctx.fillRect(this.x, this.y, this.width, this.height);
-                ctx.globalCompositeOperation = 'source-over';
+                ctx.globalAlpha = 0.6;
+                ctx.drawImage(img, this.x, this.y, this.width, this.height);
+                ctx.globalAlpha = 1;
             }
         } else {
             ctx.fillStyle = this.flashTimer > 0 ? '#fff' : this.color;
