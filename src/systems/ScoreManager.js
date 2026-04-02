@@ -1,6 +1,9 @@
 const STORAGE_KEY = 'alienBlasterHighScores';
 const MAX_SCORES = 20;
-const API_URL = 'api/scores.php';
+// Resolve relative to the page's directory (works regardless of trailing slash)
+const scriptUrl = import.meta.url;
+const baseDir = scriptUrl.substring(0, scriptUrl.lastIndexOf('/src/'));
+const API_URL = baseDir + '/api/scores.php';
 
 export class ScoreManager {
     constructor() {
