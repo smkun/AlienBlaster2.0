@@ -56,19 +56,28 @@ export class WaveManager {
 
         if (hasPurple && roll < 0.15) return 'purple';
         if (wave < 3) {
+            // Waves 1-2: mostly green, learning curve
             if (roll < 0.70) return 'green';
             if (roll < 0.90) return 'red';
             return 'yellow';
         } else if (wave < 8) {
+            // Waves 3-7: mixed
             if (roll < 0.40) return 'green';
             if (roll < 0.70) return 'red';
             if (roll < 0.85) return 'yellow';
             return hasPurple ? 'purple' : 'green';
-        } else {
-            if (roll < 0.25) return 'green';
-            if (roll < 0.60) return 'red';
-            if (roll < 0.85) return 'yellow';
+        } else if (wave < 15) {
+            // Waves 8-14: fewer greens, more heavies
+            if (roll < 0.15) return 'green';
+            if (roll < 0.45) return 'red';
+            if (roll < 0.75) return 'yellow';
             return hasPurple ? 'purple' : 'red';
+        } else {
+            // Waves 15+: brutal — mostly tanks and zigzags
+            if (roll < 0.10) return 'green';
+            if (roll < 0.30) return 'red';
+            if (roll < 0.65) return 'yellow';
+            return hasPurple ? 'purple' : 'yellow';
         }
     }
 

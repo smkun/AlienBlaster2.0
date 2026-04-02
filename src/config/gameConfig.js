@@ -32,17 +32,17 @@ export const CONFIG = {
         purple: { health: 3, speed: 130, points: 3, width: 60, height: 60, color: '#aa44ff' },
     },
 
-    // Difficulty scaling (designed for slow, fair ramp)
+    // Difficulty scaling
     WAVE_BASE_ALIENS: 12,
-    WAVE_ALIENS_PER_WAVE: 2,
-    WAVE_SPEED_MULTIPLIER: 0.02,   // 2% per wave (gentler than 3%)
-    WAVE_SPAWN_INTERVAL_START: 1.4, // slightly more breathing room early
-    WAVE_SPAWN_INTERVAL_DECREASE: 0.025,
-    WAVE_SPAWN_INTERVAL_FLOOR: 0.5,
+    WAVE_ALIENS_PER_WAVE: 3,           // 3 more aliens per wave (was 2)
+    WAVE_SPEED_MULTIPLIER: 0.04,       // 4% faster per wave (noticeable by wave 10+)
+    WAVE_SPAWN_INTERVAL_START: 1.4,
+    WAVE_SPAWN_INTERVAL_DECREASE: 0.04, // spawn rate tightens faster (was 0.025)
+    WAVE_SPAWN_INTERVAL_FLOOR: 0.35,    // can get very dense late game (was 0.5)
     WAVE_PURPLE_INTRO: 6,
     BOSS_EVERY_N_WAVES: 5,
     BOSS_BASE_HEALTH: 30,
-    BOSS_HEALTH_PER_BOSS: 10,
+    BOSS_HEALTH_PER_BOSS: 15,           // bosses get much tougher (was 10)
 
     // Power-ups
     POWERUP_SPAWN_EVERY_N_KILLS: 5,

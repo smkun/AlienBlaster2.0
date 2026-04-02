@@ -48,19 +48,21 @@ export class Alien extends Entity {
     }
 
     render(ctx, assets) {
-        // Hit flash — draw white silhouette
-        if (this.flashTimer > 0) {
-            ctx.globalAlpha = 0.8;
-            ctx.fillStyle = '#fff';
-            ctx.fillRect(this.x, this.y, this.width, this.height);
-            ctx.globalAlpha = 1;
-        }
-
-        // Alien sprite
         const img = assets?.getImage(`alien-${this.type}`);
-        if (img && this.flashTimer <= 0) {
+
+        if (img) {
+            // Always draw the sprite
             ctx.drawImage(img, this.x, this.y, this.width, this.height);
-        } else if (!img) {
+
+            // Hit flash — bright tint over the sprite
+            if (this.flashTimer > 0) {
+                ctx.globalAlpha = 0.6;
+                ctx.fillStyle = '#fff';
+                // Draw over just the sprite area
+                ctx.drawImage(img, this.x, this.y, this.width, this.height);
+                ctx.globalAlpha = 1;
+            }
+        } else {
             ctx.fillStyle = this.flashTimer > 0 ? '#fff' : this.color;
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
