@@ -85,6 +85,11 @@ export class GameOverScreen {
             ctx.fillStyle = '#ff4';
             ctx.fillText('HIGH SCORES', CONFIG.CANVAS_WIDTH / 2, 300);
 
+            // Column headers
+            ctx.font = '12px monospace';
+            ctx.fillStyle = '#888';
+            ctx.fillText('NAME          WAVE   SCORE', CONFIG.CANVAS_WIDTH / 2, 320);
+
             ctx.font = '16px monospace';
             const scores = highScores || [];
             for (let i = 0; i < Math.min(scores.length, 10); i++) {
@@ -93,7 +98,8 @@ export class GameOverScreen {
                 ctx.fillStyle = isCurrentScore ? '#4f4' : '#ccc';
                 const rank = `${i + 1}.`.padStart(3);
                 const name = s.name.padEnd(10);
-                ctx.fillText(`${rank} ${name} ${s.score}`, CONFIG.CANVAS_WIDTH / 2, 330 + i * 24);
+                const wave = `W${s.wave}`.padStart(4);
+                ctx.fillText(`${rank} ${name} ${wave}  ${s.score}`, CONFIG.CANVAS_WIDTH / 2, 345 + i * 24);
             }
 
             ctx.font = '18px monospace';

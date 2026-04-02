@@ -195,9 +195,18 @@ body {
     color: #ccd;
 }
 
+#high-scores-list li .wave {
+    color: #88a;
+    font-size: 1.1rem;
+    min-width: 30px;
+    text-align: center;
+}
+
 #high-scores-list li .score {
     color: #fd4;
     font-weight: 700;
+    min-width: 35px;
+    text-align: right;
 }
 
 /* Controls list */

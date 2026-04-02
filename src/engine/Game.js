@@ -90,7 +90,7 @@ export class Game {
             return;
         }
         this.htmlHighScores.innerHTML = scores.slice(0, 10).map((s, i) =>
-            `<li><span class="rank">${i + 1}.</span><span class="name">${s.name}</span><span class="score">${s.score}</span></li>`
+            `<li><span class="rank">${i + 1}.</span><span class="name">${s.name}</span><span class="wave">W${s.wave}</span><span class="score">${s.score}</span></li>`
         ).join('');
     }
 
@@ -132,6 +132,9 @@ export class Game {
             case CONFIG.STATES.PAUSED:
                 if (this.input.wasPressed('Escape') || this.input.wasPressed('KeyP')) {
                     this.setState(CONFIG.STATES.PLAYING);
+                }
+                if (this.input.wasPressed('KeyQ')) {
+                    this.enterGameOver();
                 }
                 break;
             case CONFIG.STATES.WAVE_COMPLETE:
@@ -547,10 +550,12 @@ export class Game {
         this.ctx.fillStyle = '#fff';
         this.ctx.font = '48px monospace';
         this.ctx.textAlign = 'center';
-        this.ctx.fillText('PAUSED', this.canvas.width / 2, this.canvas.height / 2);
+        this.ctx.fillText('PAUSED', this.canvas.width / 2, this.canvas.height / 2 - 10);
         this.ctx.font = '20px monospace';
         this.ctx.fillStyle = '#aaa';
-        this.ctx.fillText('Press ESC to Resume', this.canvas.width / 2, this.canvas.height / 2 + 40);
+        this.ctx.fillText('Press ESC to Resume', this.canvas.width / 2, this.canvas.height / 2 + 30);
+        this.ctx.fillStyle = '#f66';
+        this.ctx.fillText('Press Q to End Game', this.canvas.width / 2, this.canvas.height / 2 + 60);
     }
 
     renderWaveComplete() {
