@@ -22,7 +22,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
     // Return top 20 scores
-    $stmt = $db->prepare('SELECT name, score, wave FROM alien_blaster_scores ORDER BY score DESC LIMIT 20');
+    $stmt = $db->prepare('SELECT name, score, wave FROM high_scores ORDER BY score DESC LIMIT 20');
     $stmt->execute();
     $result = $stmt->get_result();
     $scores = [];
@@ -59,7 +59,7 @@ if ($method === 'GET') {
 
     // Insert or update if new score is higher
     $stmt = $db->prepare(
-        'INSERT INTO alien_blaster_scores (name, score, wave) VALUES (?, ?, ?)
+        'INSERT INTO high_scores (name, score, wave) VALUES (?, ?, ?)
          ON DUPLICATE KEY UPDATE score = IF(VALUES(score) > score, VALUES(score), score),
                                   wave = IF(VALUES(score) > score, VALUES(wave), wave)'
     );
