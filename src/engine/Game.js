@@ -355,7 +355,9 @@ export class Game {
             // Submit score when name is entered
             if (e.key === 'Enter' && this.gameOverScreen.playerName.length > 0 && !this.gameOverScreen.submitted) {
                 this.gameOverScreen.submitted = true;
-                this.scoreManager.addScore(this.gameOverScreen.playerName, this.score, this.wave);
+                this.scoreManager.addScore(this.gameOverScreen.playerName, this.score, this.wave).then(() => {
+                    this.syncHighScoresHTML();
+                });
             }
         };
         window.addEventListener('keydown', this.keyListener);
